@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Categorías — Listado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#FCE6D1] text-[#4b4b4b]">
+  {% include 'nav.html' %}
+
+  <main class="max-w-6xl mx-auto p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-semibold text-[#775c59]">Categorías</h1>
+      <a href="{% url 'categoria_create' %}" class="px-4 py-2 rounded-lg border border-[#9bb19b] bg-[#C5D7C0] text-[#2c2c2c] text-sm font-medium hover:bg-[#aec4a9] transition">
+        + Nueva categoría
+      </a>
+    </div>
+
+    <section class="overflow-hidden rounded-2xl bg-white/80 ring-1 ring-[#EAC1BB]/60 shadow-sm">
+      {% if categorias %}
+      <table class="w-full border-collapse">
+        <thead class="bg-[#FCE6D1]/60 text-[#775c59] text-sm uppercase tracking-wide">
+          <tr>
+            <th class="px-6 py-3 text-left">ID</th>
+            <th class="px-6 py-3 text-left">Nombre</th>
+            <th class="px-6 py-3 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#EAC1BB]/40 text-[#4b4b4b]">
+          {% for c in categorias %}
+          <tr class="hover:bg-[#FCE6D1]/40 transition">
+            <td class="px-6 py-3 font-medium">{{ c.id }}</td>
+            <td class="px-6 py-3">{{ c.nombre }}</td>
+            <td class="px-6 py-3">
+              <div class="flex items-center justify-center gap-3">
+                <a href="{% url 'categoria_editar' c.id %}"
+                   class="px-3 py-1.5 rounded-lg border border-[#9bb19b] bg-[#C5D7C0] text-[#2c2c2c] text-sm font-medium hover:bg-[#aec4a9] transition">
+                  ✏️ Editar
+                </a>
+                <form action="{% url 'categoria_eliminar' c.id %}" method="post"
+                      onsubmit="return confirm('¿Seguro que querés eliminar esta categoría?');">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="px-3 py-1.5 rounded-lg border border-[#EAC1BB] bg-[#FDECE4] text-[#7a4a46] text-sm font-medium hover:bg-[#f6cfc7] transition">
+                    🗑️ Eliminar
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="p-4 text-[#775c59]/80">Todavía no hay categorías cargadas.</div>
+      {% endif %}
+    </section>
+
+    {% if messages %}
+    <div class="fixed bottom-4 right-4">
+      {% for message in messages %}
+      <div class="mb-2 rounded-xl bg-[#C5D7C0]/90 px-4 py-3 text-[#2c2c2c] shadow-lg">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </main>
+</body>
+</html>

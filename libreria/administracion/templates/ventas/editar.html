@@ -1,0 +1,138 @@
+<!-- templates/ventas/editar.html -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Editar venta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#FCE6D1] text-[#4b4b4b]">
+  {% include 'nav.html' %}
+
+  <main class="max-w-6xl mx-auto p-6">
+    <section class="bg-white/85 ring-1 ring-[#EAC1BB] rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h1 class="text-2xl font-semibold text-[#775c59]">Editar venta #{{ venta.id }}</h1>
+          <p class="text-[#775c59]/80">Actualizá la fecha y los ítems. El stock se ajustará según la diferencia.</p>
+        </div>
+        <a href="{% url 'ventas_list' %}" class="text-sm underline text-[#775c59]">Volver</a>
+      </div>
+
+      {% if errors or item_errors %}
+        <div class="mb-4 rounded-xl bg-[#FDECE4] border border-[#EAC1BB] px-4 py-3 text-[#7a4a46] text-sm">
+          <p><strong>Hay errores en el formulario:</strong></p>
+          <ul class="list-disc ml-6 mt-1">
+            {% if errors.fecha %}<li>{{ errors.fecha }}</li>{% endif %}
+            {% if errors.items %}<li>{{ errors.items }}</li>{% endif %}
+            {% for e in item_errors %}<li>{{ e }}</li>{% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <form method="post" class="space-y-6" novalidate>
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div>
+            <label class="block mb-2 text-[#775c59]">Fecha</label>
+            <input name="fecha" type="date" value="{{ data.fecha }}"
+                   class="w-full border-2 border-[#EAC1BB] rounded-xl px-4 py-2">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block mb-1 text-[#775c59]">Detalle</label>
+            <button type="button" id="add-row" class="px-3 py-1.5 rounded-lg border border-[#EAC1BB]">
+              + Agregar ítem
+            </button>
+          </div>
+
+          <div class="overflow-hidden rounded-2xl bg-white/80 ring-1 ring-[#EAC1BB]/60 shadow-sm">
+            <table class="w-full">
+              <thead class="bg-[#FCE6D1]/60 text-[#775c59] text-sm uppercase tracking-wide">
+                <tr>
+                  <th class="px-4 py-2 text-left">Libro</th>
+                  <th class="px-4 py-2 text-left">Cantidad</th>
+                  <th class="px-4 py-2 text-center">Acción</th>
+                </tr>
+              </thead>
+              <tbody id="detalle-body" class="divide-y divide-[#EAC1BB]/40">
+                {% for it in data.items %}
+                <tr class="hover:bg-[#FCE6D1]/30">
+                  <td class="px-4 py-2">
+                    <select name="libro_id[]" class="w-full border-2 border-[#EAC1BB] rounded-xl px-3 py-2">
+                      <option value="">— Seleccionar —</option>
+                      {% for l in libros %}
+                      <option value="{{ l.id }}" {% if it.libro_id == l.id|stringformat:'s' %}selected{% endif %}>
+                        {{ l.titulo }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                  <td class="px-4 py-2">
+                    <input type="number" min="1" name="cantidad[]" value="{{ it.cantidad|default:'1' }}"
+                           class="w-full border-2 border-[#EAC1BB] rounded-xl px-3 py-2">
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="px-3 py-1.5 rounded-lg border border-[#EAC1BB] remove-row">Quitar</button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3">
+          <a href="{% url 'ventas_list' %}" class="px-4 py-2 rounded-lg border border-[#EAC1BB]">Cancelar</a>
+          <button type="submit" class="px-4 py-2 rounded-lg border border-[#9bb19b] bg-[#C5D7C0]">Guardar cambios</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <template id="row-template">
+    <tr class="hover:bg-[#FCE6D1]/30">
+      <td class="px-4 py-2">
+        <select name="libro_id[]" class="w-full border-2 border-[#EAC1BB] rounded-xl px-3 py-2">
+          <option value="">— Seleccionar —</option>
+          {% for l in libros %}
+          <option value="{{ l.id }}">{{ l.titulo }}</option>
+          {% endfor %}
+        </select>
+      </td>
+      <td class="px-4 py-2">
+        <input type="number" min="1" name="cantidad[]" value="1"
+               class="w-full border-2 border-[#EAC1BB] rounded-xl px-3 py-2">
+      </td>
+      <td class="px-4 py-2 text-center">
+        <button type="button" class="px-3 py-1.5 rounded-lg border border-[#EAC1BB] remove-row">Quitar</button>
+      </td>
+    </tr>
+  </template>
+
+  <script>
+    const addBtn = document.getElementById('add-row');
+    const body = document.getElementById('detalle-body');
+    const tpl = document.getElementById('row-template');
+
+    addBtn?.addEventListener('click', () => {
+      body.appendChild(tpl.content.cloneNode(true));
+      bindRemove();
+    });
+
+    function bindRemove() {
+      document.querySelectorAll('.remove-row').forEach(btn => {
+        btn.onclick = () => {
+          const tr = btn.closest('tr');
+          if (tr && body.children.length > 1) tr.remove();
+        };
+      });
+    }
+    bindRemove();
+  </script>
+</body>
+</html>

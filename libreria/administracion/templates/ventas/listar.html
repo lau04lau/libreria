@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Ventas — Listado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#FCE6D1] text-[#4b4b4b]">
+  {% include 'nav.html' %}
+
+  <main class="max-w-6xl mx-auto p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-semibold text-[#775c59]">Ventas</h1>
+      <a href="{% url 'ventas_create' %}" class="px-4 py-2 rounded-lg border border-[#9bb19b] bg-[#C5D7C0] text-[#2c2c2c] text-sm font-medium hover:bg-[#aec4a9] transition">
+        + Nueva venta
+      </a>
+    </div>
+
+    <section class="overflow-hidden rounded-2xl bg-white/80 ring-1 ring-[#EAC1BB]/60 shadow-sm">
+      {% if ventas %}
+      <table class="w-full border-collapse">
+        <thead class="bg-[#FCE6D1]/60 text-[#775c59] text-sm uppercase tracking-wide">
+          <tr>
+            <th class="px-6 py-3 text-left">ID</th>
+            <th class="px-6 py-3 text-left">Fecha</th>
+            <th class="px-6 py-3 text-left">Ítems</th>
+            <th class="px-6 py-3 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#EAC1BB]/40 text-[#4b4b4b]">
+          {% for v in ventas %}
+          <tr class="hover:bg-[#FCE6D1]/40 transition align-top">
+            <td class="px-6 py-3 font-medium">{{ v.id }}</td>
+            <td class="px-6 py-3">{{ v.fecha }}</td>
+            <td class="px-6 py-3">
+              <div class="flex flex-col gap-1">
+                {% for d in v.detalles.all %}
+                <span class="text-sm">
+                  <span class="inline-block rounded-full px-2 py-0.5 ring-1 ring-[#9bb19b] bg-[#C5D7C0]/60 mr-1">{{ d.cantidad }}x</span>
+                  {{ d.libro.titulo }}
+                </span>
+                {% endfor %}
+              </div>
+            </td>
+            <td class="px-6 py-3">
+              <div class="flex items-center justify-center gap-3">
+                <a href="{% url 'ventas_editar' v.id %}"
+                   class="px-3 py-1.5 rounded-lg border border-[#9bb19b] bg-[#C5D7C0] text-[#2c2c2c] text-sm font-medium hover:bg-[#aec4a9] transition">
+                  ✏️ Editar
+                </a>
+                <form action="{% url 'ventas_eliminar' v.id %}" method="post"
+                      onsubmit="return confirm('¿Seguro que querés eliminar esta venta? Se restaurará el stock.');">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="px-3 py-1.5 rounded-lg border border-[#EAC1BB] bg-[#FDECE4] text-[#7a4a46] text-sm font-medium hover:bg-[#f6cfc7] transition">
+                    🗑️ Eliminar
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="p-4 text-[#775c59]/80">Todavía no hay ventas registradas.</div>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

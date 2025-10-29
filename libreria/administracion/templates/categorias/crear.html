@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Crear categoría</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --rosa:#EAC1BB; --peach:#FCE6D1; --verde:#C5D7C0; }
+    body{background:var(--peach);color:#4b4b4b;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu}
+    .card{border-radius:1.5rem;background:rgba(255,255,255,.8);box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid #efcfbf;backdrop-filter:blur(4px)}
+    .lbl{display:block;margin-bottom:.4rem;font-weight:500;color:#775c59}
+    .inp{background:#fff;border:2px solid var(--rosa);border-radius:.75rem;padding:.6rem 1rem;width:100%;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:.2s}
+    .inp:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 3px rgba(197,215,192,.4)}
+    .btn{background:var(--verde);border:2px solid #9bb19b;border-radius:.75rem;color:#2c2c2c;font-weight:500;padding:.6rem 1.2rem;transition:.2s}
+    .btn:hover{background:#aec4a9;transform:translateY(-1px)}
+    .btn-clear{border:2px solid var(--rosa);border-radius:.75rem;color:#775c59;padding:.6rem 1.2rem;background:transparent;transition:.2s}
+    .btn-clear:hover{background:#f7dad5}
+    .err{color:#dc2626;font-size:.875rem;margin-top:.35rem}
+  </style>
+</head>
+<body>
+  {% include 'nav.html' %}
+
+  <main class="mx-auto max-w-3xl p-6">
+    <section class="card mt-8">
+      <div class="border-b border-[#EAC1BB]/60 p-6 flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-semibold text-[#775c59]">Crear categoría</h1>
+          <p class="text-[#775c59]/80">Ingresá el nombre de la categoría.</p>
+        </div>
+        <a href="{% url 'categoria_list' %}" class="text-sm underline text-[#775c59]">Ver listado</a>
+      </div>
+
+      <form method="post" class="p-6 space-y-6" novalidate>
+        {% csrf_token %}
+
+        {% if errors.general %}<p class="err">{{ errors.general }}</p>{% endif %}
+
+        <div>
+          <label for="id_nombre" class="lbl">Nombre</label>
+          <input id="id_nombre" name="nombre" type="text" maxlength="80"
+                 value="{{ data.nombre }}" class="inp" placeholder="Ej: Novela">
+          {% if errors.nombre %}<p class="err">{{ errors.nombre }}</p>{% endif %}
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <a href="{% url 'categoria_create' %}" class="btn-clear">Limpiar</a>
+          <button type="submit" class="btn">Guardar categoría</button>
+        </div>
+      </form>
+    </section>
+
+    {% if messages %}
+    <div class="fixed bottom-4 right-4">
+      {% for message in messages %}
+      <div class="mb-2 rounded-xl bg-[#C5D7C0]/90 px-4 py-3 text-[#2c2c2c] shadow-lg">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </main>
+</body>
+</html>

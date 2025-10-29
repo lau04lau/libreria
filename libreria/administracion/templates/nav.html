@@ -1,0 +1,118 @@
+<nav class="w-full bg-[#FCE6D1] border-b border-[#EAC1BB]/60 shadow-sm relative z-50">
+  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <a href="{% url 'ventas_list' %}" class="text-lg font-semibold text-[#775c59] hover:text-[#4b4b4b]">
+        Librería YENNY
+      </a>
+    </div>
+
+    <ul class="hidden md:flex items-center gap-6 text-[#775c59] font-medium">
+
+      <li class="relative">
+        <button id="btn-autores" class="inline-flex items-center gap-1 hover:text-[#4b4b4b]">
+          Autores
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.085l3.71-3.855a.75.75 0 011.08 1.04l-4.24 4.41a.75.75 0 01-1.08 0L5.25 8.27a.75.75 0 01-.02-1.06z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div id="menu-autores" class="absolute left-0 mt-2 w-48 rounded-xl bg-white ring-1 ring-[#EAC1BB]/60 shadow-lg hidden z-50">
+          <ul class="py-2 text-sm text-[#775c59]">
+            <li><a href="{% url 'autor_list' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Listado</a></li>
+            <li><a href="{% url 'autor_create' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Nuevo autor</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="relative">
+        <button id="btn-categorias" class="inline-flex items-center gap-1 hover:text-[#4b4b4b]">
+          Categorías
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.085l3.71-3.855a.75.75 0 011.08 1.04l-4.24 4.41a.75.75 0 01-1.08 0L5.25 8.27a.75.75 0 01-.02-1.06z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div id="menu-categorias" class="absolute left-0 mt-2 w-48 rounded-xl bg-white ring-1 ring-[#EAC1BB]/60 shadow-lg hidden z-50">
+          <ul class="py-2 text-sm text-[#775c59]">
+            <li><a href="{% url 'categoria_list' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Listado</a></li>
+            <li><a href="{% url 'categoria_create' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Nueva categoría</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="relative">
+        <button id="btn-libros" class="inline-flex items-center gap-1 hover:text-[#4b4b4b]">
+          Libros
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.085l3.71-3.855a.75.75 0 011.08 1.04l-4.24 4.41a.75.75 0 01-1.08 0L5.25 8.27a.75.75 0 01-.02-1.06z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div id="menu-libros" class="absolute left-0 mt-2 w-48 rounded-xl bg-white ring-1 ring-[#EAC1BB]/60 shadow-lg hidden z-50">
+          <ul class="py-2 text-sm text-[#775c59]">
+            <li><a href="{% url 'libros_list' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Listado</a></li>
+            <li><a href="{% url 'libros_create' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Nuevo libro</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="relative">
+        <button id="btn-ventas" class="inline-flex items-center gap-1 hover:text-[#4b4b4b]">
+          Ventas
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.085l3.71-3.855a.75.75 0 011.08 1.04l-4.24 4.41a.75.75 0 01-1.08 0L5.25 8.27a.75.75 0 01-.02-1.06z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div id="menu-ventas" class="absolute left-0 mt-2 w-48 rounded-xl bg-white ring-1 ring-[#EAC1BB]/60 shadow-lg hidden z-50">
+          <ul class="py-2 text-sm text-[#775c59]">
+            <li><a href="{% url 'ventas_list' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Listado</a></li>
+            <li><a href="{% url 'ventas_create' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Nueva venta</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="relative">
+        <button id="btn-reportes" class="inline-flex items-center gap-1 hover:text-[#4b4b4b]">
+          Reportes
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.085l3.71-3.855a.75.75 0 011.08 1.04l-4.24 4.41a.75.75 0 01-1.08 0L5.25 8.27a.75.75 0 01-.02-1.06z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <div id="menu-reportes" class="absolute right-0 mt-2 w-64 rounded-xl bg-white ring-1 ring-[#EAC1BB]/60 shadow-lg hidden z-50">
+          <ul class="py-2 text-sm text-[#775c59]">
+            <li><a href="{% url 'reporte_ventas_por_libro' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Ventas por libro</a></li>
+            <li><a href="{% url 'reporte_ranking_libros' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Ranking de libros</a></li>
+            <li><a href="{% url 'reporte_libros_mas_vendidos' %}" class="block px-4 py-2 hover:bg-[#FCE6D1]/50">Libros más vendidos</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+
+    <button id="menu-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-md border border-[#EAC1BB] hover:bg-[#f9d8c8]">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#775c59" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m0 6H4" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    function setupDropdown(buttonId, menuId) {
+      const btn = document.getElementById(buttonId);
+      const menu = document.getElementById(menuId);
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('[id^="menu-"]').forEach(m => {
+          if (m !== menu) m.classList.add('hidden');
+        });
+        menu.classList.toggle('hidden');
+      });
+    }
+
+    setupDropdown('btn-autores', 'menu-autores');
+    setupDropdown('btn-categorias', 'menu-categorias');
+    setupDropdown('btn-libros', 'menu-libros');
+    setupDropdown('btn-ventas', 'menu-ventas');
+    setupDropdown('btn-reportes', 'menu-reportes');
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('[id^="menu-"]').forEach(m => m.classList.add('hidden'));
+    });
+  </script>
+</nav>

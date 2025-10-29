@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Editar autor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root { --rosa:#EAC1BB; --peach:#FCE6D1; --verde:#C5D7C0; }
+    body{ background:var(--peach); color:#4b4b4b; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell;}
+    .card{ border-radius:1.5rem; background:rgba(255,255,255,.85); border:1px solid #efcfbf; box-shadow:0 2px 8px rgba(0,0,0,.05); backdrop-filter:blur(4px);}
+    .lbl{ display:block; margin-bottom:.4rem; font-weight:500; color:#775c59;}
+    .inp{ width:100%; background:#fff; border:2px solid var(--rosa); border-radius:.75rem; padding:.6rem 1rem; box-shadow:0 1px 2px rgba(0,0,0,.05); transition:.2s;}
+    .inp:focus{ outline:none; border-color:var(--verde); box-shadow:0 0 0 3px rgba(197,215,192,.4);}
+    .btn{ background:var(--verde); border:2px solid #9bb19b; border-radius:.75rem; color:#2c2c2c; font-weight:500; padding:.6rem 1.2rem; transition:.2s;}
+    .btn:hover{ background:#aec4a9; transform:translateY(-1px);}
+    .btn-clear{ border:2px solid var(--rosa); border-radius:.75rem; color:#775c59; padding:.6rem 1.2rem; background:transparent; transition:.2s;}
+    .btn-clear:hover{ background:#f7dad5;}
+    .chip{ border-radius:9999px; background:rgba(197,215,192,.6); padding:.25rem .65rem; font-size:.75rem; color:#2c2c2c; border:1px solid #9bb19b;}
+  </style>
+</head>
+<body>
+
+
+  <main class="mx-auto max-w-3xl p-6">
+    <section class="card mt-8">
+      <div class="flex items-center justify-between border-b border-[#EAC1BB]/60 p-6">
+        <div>
+          <h1 class="text-2xl font-semibold text-[#775c59]">Editar autor</h1>
+          <p class="text-[#775c59]/80">Modificá los datos y guardá los cambios.</p>
+        </div>
+        <span class="chip">ID {{ autor.id }}</span>
+      </div>
+
+      <form method="post" class="p-6 space-y-6" novalidate>
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label for="id_nombre" class="lbl">Nombre</label>
+            <input id="id_nombre" name="nombre" type="text" maxlength="80" required
+                   value="{{ autor.nombre }}" class="inp" placeholder="Nombre">
+          </div>
+
+          <div>
+            <label for="id_apellido" class="lbl">Apellido</label>
+            <input id="id_apellido" name="apellido" type="text" maxlength="80" required
+                   value="{{ autor.apellido }}" class="inp" placeholder="Apellido">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <a href="{% url 'autor_create' %}" class="btn-clear">Cancelar</a>
+          <button type="submit" class="btn">Guardar cambios</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
