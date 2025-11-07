@@ -8,7 +8,8 @@ from django.db.models.functions import Coalesce
 from decimal import Decimal, InvalidOperation
 from django.db.models import Prefetch
 
-
+def home(request):
+    return render(request, "home.html")
 
 def autor_create(request):
     errors = {}

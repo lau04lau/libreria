@@ -55,15 +55,16 @@
             <td class="px-6 py-3">
               <div class="flex items-center justify-center gap-3">
                 <a href="{% url 'libros_editar' l.id %}"
-                  class="px-3 py-1.5 rounded-lg border border-[#9bb19b] bg-[#C5D7C0] text-[#2c2c2c] text-sm font-medium hover:bg-[#aec4a9] transition">
-                  ✏️ Editar
+                  class="flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg border border-[#9bb19b] bg-[#C5D7C0] text-[#2c2c2c] text-sm font-medium hover:bg-[#aec4a9] transition">
+                  ✏️ <span>Editar</span>
                 </a>
+
                 <form action="{% url 'libros_eliminar' l.id %}" method="post"
                   onsubmit="return confirm('¿Seguro que querés eliminar este libro?');">
                   {% csrf_token %}
                   <button type="submit"
-                    class="px-3 py-1.5 rounded-lg border border-[#EAC1BB] bg-[#FDECE4] text-[#7a4a46] text-sm font-medium hover:bg-[#f6cfc7] transition">
-                    🗑️ Eliminar
+                    class="flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg border border-[#EAC1BB] bg-[#FDECE4] text-[#7a4a46] text-sm font-medium hover:bg-[#f6cfc7] transition">
+                    🗑️ <span>Eliminar</span>
                   </button>
                 </form>
               </div>

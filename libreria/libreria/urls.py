@@ -2,6 +2,7 @@ from django.urls import path
 from administracion import views as administracion
 
 urlpatterns = [
+    path("", administracion.home, name="home"),
     path("autores/", administracion.autor_list, name="autor_list"),
     path("autores/nuevo/", administracion.autor_create, name="autor_create"),
     path("autores/editar/<int:id>/", administracion.autor_editar, name="autor_editar"),
