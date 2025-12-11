@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Inicio — Librería YENNY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --rosa: #EAC1BB;
+      --peach: #FCE6D1;
+      --verde: #C5D7C0;
+    }
+    body {
+      background: var(--peach);
+      color: #4b4b4b;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu;
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'nav.html' %}
+
+  <main class="max-w-6xl mx-auto p-8">
+    <section class="text-center mb-10">
+      <h1 class="text-4xl font-semibold text-[#775c59] mb-3">Bienvenido/a a Librería YENNY</h1>
+      <p class="text-[#775c59]/80 max-w-2xl mx-auto">
+        Sistema de gestión integral para registrar, administrar y visualizar información de autores, categorías, libros, ventas y reportes.
+      </p>
+    </section>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      <a href="{% url 'autor_list' %}" class="rounded-2xl bg-white/80 border border-[#efcfbf] shadow-md hover:shadow-lg hover:-translate-y-1 transition p-6 text-center">
+        <h2 class="text-xl font-semibold text-[#775c59] mb-2">Autores</h2>
+        <p class="text-sm text-[#775c59]/80 mb-3">Gestioná los autores de la librería.</p>
+        <span class="inline-block bg-[#C5D7C0] text-[#2c2c2c] px-3 py-1 rounded-lg font-medium">Ver autores</span>
+      </a>
+
+      <a href="{% url 'categoria_list' %}" class="rounded-2xl bg-white/80 border border-[#efcfbf] shadow-md hover:shadow-lg hover:-translate-y-1 transition p-6 text-center">
+        <h2 class="text-xl font-semibold text-[#775c59] mb-2">Categorías</h2>
+        <p class="text-sm text-[#775c59]/80 mb-3">Administrá las categorías de libros.</p>
+        <span class="inline-block bg-[#C5D7C0] text-[#2c2c2c] px-3 py-1 rounded-lg font-medium">Ver categorías</span>
+      </a>
+
+      <a href="{% url 'libros_list' %}" class="rounded-2xl bg-white/80 border border-[#efcfbf] shadow-md hover:shadow-lg hover:-translate-y-1 transition p-6 text-center">
+        <h2 class="text-xl font-semibold text-[#775c59] mb-2">Libros</h2>
+        <p class="text-sm text-[#775c59]/80 mb-3">Agregá y gestioná todos los libros disponibles.</p>
+        <span class="inline-block bg-[#C5D7C0] text-[#2c2c2c] px-3 py-1 rounded-lg font-medium">Ver libros</span>
+      </a>
+
+      <a href="{% url 'ventas_list' %}" class="rounded-2xl bg-white/80 border border-[#efcfbf] shadow-md hover:shadow-lg hover:-translate-y-1 transition p-6 text-center">
+        <h2 class="text-xl font-semibold text-[#775c59] mb-2">Ventas</h2>
+        <p class="text-sm text-[#775c59]/80 mb-3">Registrá nuevas ventas y consultá las existentes.</p>
+        <span class="inline-block bg-[#C5D7C0] text-[#2c2c2c] px-3 py-1 rounded-lg font-medium">Ver ventas</span>
+      </a>
+
+      <a href="{% url 'reporte_ventas_por_libro' %}" class="rounded-2xl bg-white/80 border border-[#efcfbf] shadow-md hover:shadow-lg hover:-translate-y-1 transition p-6 text-center">
+        <h2 class="text-xl font-semibold text-[#775c59] mb-2">Reportes</h2>
+        <p class="text-sm text-[#775c59]/80 mb-3">Consultá estadísticas de ventas y ranking de libros.</p>
+        <span class="inline-block bg-[#C5D7C0] text-[#2c2c2c] px-3 py-1 rounded-lg font-medium">Ver reportes</span>
+      </a>
+    </section>
+
+    <footer class="mt-16 text-center text-sm text-[#775c59]/70">
+      © {{ now|date:"Y" }} Librería YENNY — Sistema desarrollado en Django
+    </footer>
+  </main>
+</body>
+</html>

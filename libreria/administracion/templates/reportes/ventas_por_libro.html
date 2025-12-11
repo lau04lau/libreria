@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Reporte — Ventas por libro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#FCE6D1] text-[#4b4b4b]">
+  {% include 'nav.html' %}
+
+  <main class="max-w-6xl mx-auto p-6">
+    <section class="bg-white/85 ring-1 ring-[#EAC1BB] rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h1 class="text-2xl font-semibold text-[#775c59]">Ventas por libro</h1>
+          <p class="text-sm text-[#775c59]/80">
+            {% if es_preciso %}
+              Importes calculados con el <strong>precio unitario de cada venta</strong>.
+            {% else %}
+              Importes estimados con el <strong>precio actual del libro</strong>.
+            {% endif %}
+          </p>
+        </div>
+      </div>
+
+      <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-[#EAC1BB]/60">
+        <table class="w-full border-collapse">
+          <thead class="bg-[#FCE6D1]/60 text-[#775c59] text-sm uppercase tracking-wide">
+            <tr>
+              <th class="px-6 py-3 text-left">Libro</th>
+              <th class="px-6 py-3 text-right">Unidades</th>
+              <th class="px-6 py-3 text-right">Importe</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#EAC1BB]/40">
+            {% for r in rows %}
+            <tr class="hover:bg-[#FCE6D1]/30">
+              <td class="px-6 py-3">{{ r.libro__titulo }}</td>
+              <td class="px-6 py-3 text-right">{{ r.unidades }}</td>
+              <td class="px-6 py-3 text-right">$ {{ r.importe|floatformat:2 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3" class="px-6 py-6 text-center text-[#775c59]/80">
+                No hay ventas registradas.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot class="bg-[#FCE6D1]/40">
+            <tr class="font-semibold">
+              <td class="px-6 py-3 text-right">Totales:</td>
+              <td class="px-6 py-3 text-right">{{ totales.total_unidades|default:"0" }}</td>
+              <td class="px-6 py-3 text-right">$ {{ totales.total_importe|default:0|floatformat:2 }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
